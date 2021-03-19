@@ -27,6 +27,11 @@ const http = require('http');
 // });
 
 ///SERVER///
-http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
+  console.log(req);
   res.end('Hello from the Server!');
+});
+
+server.listen(8000, '127.0.0.1', () => {
+  console.log('The server has been started');
 });
