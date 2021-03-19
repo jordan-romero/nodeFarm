@@ -37,13 +37,18 @@ const server = http.createServer((req, res) => {
     res.end('This is the overview');
   } else if (pathname === '/product') {
     res.end('Hello from the product!');
+  } else if (pathname === '/api') {
+    fs.readFile(`${__dirname}/dev-data/data.json`, 'utf-8', (err, data) => {
+      const productData = JSON.parse(data);
+      console.log(productData);
+    });
+    res.end('API');
   } else {
     res.writeHeader(404, {
       'Content-type': 'text/html',
     });
+    // res.end(<h1>Page not Found!</h1>);
   }
-
-  res.end(<h1>Page not Found!</h1>);
 });
 
 server.listen(8000, '127.0.0.1', () => {
