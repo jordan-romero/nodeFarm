@@ -33,21 +33,22 @@ const server = http.createServer((req, res) => {
 
   const pathname = req.url;
 
+  const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'utf-8');
+
   if (pathname === '/' || pathname === '/overview') {
     res.end('This is the overview');
   } else if (pathname === '/product') {
     res.end('Hello from the product!');
   } else if (pathname === '/api') {
-    fs.readFile(`${__dirname}/dev-data/data.json`, 'utf-8', (err, data) => {
-      const productData = JSON.parse(data);
-      console.log(productData);
+    res.writeHead(404, {
+      'Content-type': 'application/json',
     });
-    res.end('API');
+    res.end(data);
   } else {
-    res.writeHeader(404, {
+    res.writeHead(404, {
       'Content-type': 'text/html',
     });
-    // res.end(<h1>Page not Found!</h1>);
+    res.end('<h1>Page not Found!</h1>');
   }
 });
 
